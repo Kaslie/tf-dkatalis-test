@@ -15,10 +15,3 @@ variable "db_user" {
 variable "db_password" {
   type = string
 }
-
-variable "instance_type" {
-  type = map(string)
-  default = {
-    "cpu-2-4" = "ecs.t5-c1m2.large"
-  }
-}
