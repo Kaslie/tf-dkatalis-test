@@ -1,21 +1,8 @@
-//module "nat-gateway" {
-//  source = "terraform-alicloud-modules/nat-gateway/alicloud"
-//  version = "1.2.0"
-//
-//  create = true
-//  vpc_id = module.vpc.this_vpc_id
-//  name   = "nat-gateway"
-//
-//  nat_type    = "Enhanced"
-//
-//  // Create eip and bind them with nat gateway
-//  create_eip    = true
-//  number_of_eip = 1
-//  eip_name      = "eip-nat-lb"
-//  eip_isp       = "BGP"
-//  eip_tags = {
-//    Created               = "Terraform"
-//    Environment           = "production"
-//    type                  = "wordpress-eip"
-//  }
-//}
+resource "alicloud_nat_gateway" "enhanced" {
+  depends_on       = [module.vpc]
+  vpc_id           = module.vpc.this_vpc_id
+  nat_gateway_name = "nat-gateway"
+  payment_type     = "PayAsYouGo"
+  vswitch_id       = join(",", module.vpc.this_vswitch_ids)
+  nat_type         = "Enhanced"
+}
